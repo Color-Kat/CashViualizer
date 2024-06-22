@@ -16,9 +16,7 @@ export const Page: React.FC<PageProps> = ({children, className}) => {
             'pt-5 pb-16',
             className
         )}>
-
             {children}
-
         </div>
     );
 };
