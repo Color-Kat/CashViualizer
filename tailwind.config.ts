@@ -4,6 +4,9 @@ const config: Config = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./modules/**/*.{js,ts,jsx,tsx,mdx}",
+        "./UI/**/*.{js,ts,jsx,tsx,mdx}",
+        "./utils/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme:
@@ -11,19 +14,19 @@ const config: Config = {
             extend: {
                 colors: {
                     'app':
-                        '#f7f5ff',
+                        '#cfdccf',
                     'app-dark':
-                        '#e7e7ff',
+                        '#003b00',
                     'app-gray':
                         '#777777',
                     'app-light':
                         '#f1f1f1',
                     'app-primary':
-                        '#818cf8',
+                        '#25a239',
                     'app-secondary':
                         '#2467cc',
                     'app-accent':
-                        '#6366f1',
+                        '#0d9415',
 
                 },
                 animation: {

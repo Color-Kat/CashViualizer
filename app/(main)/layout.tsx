@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { Page } from "@/modules/PageTemplates";
+import { twJoin } from "tailwind-merge";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
     title: "Визуализатор денег",
@@ -17,7 +18,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
-        <body className={inter.className}>
+        <body className={twJoin(
+            inter.className,
+            'bg-app text-app-dark text-2xl'
+        )}>
             <Page>
                 <main>
                     {children}

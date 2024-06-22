@@ -2,22 +2,35 @@ import React, {memo} from "react";
 
 import Image from "next/image";
 import { FaAngleRight } from "react-icons/fa";
-import { H1 } from "@/UI/Typography";
 import { FilledArrowLink, TextArrowLink } from "@/UI/Links";
 
 import millionIllustration from "@/public/million.png";
+import { H1 } from "@/UI/Typography";
+
+import { Roboto } from 'next/font/google'
+import { twJoin } from "tailwind-merge";
+
+const roboto = Roboto({
+    weight: ['400', '500', '700', '900'],
+    subsets: ['cyrillic'],
+})
 
 export const HeroSection: React.FC = memo(({}) => {
     return (
-        <section className="">
-            <div className="page-container md:pt-16 md:pb-10 sm:py-20 pt-8 pb-16 lg:gap-12 gap-6 text-gray-600 overflow-hidden md:flex">
-                <div className="flex-none space-y-5 max-w-xl">
+        <section className="md:pt-16 md:pb-10 sm:py-20 pt-8 pb-16 ">
+            <div className={twJoin(
+                "p-7 rounded-3xl lg:gap-12 gap-6 text-gray-600 overflow-hidden md:flex",
+                // "bg-lime-50/80",
+                "bg-gradient-to-br from-lime-50/90 to-lime-200/50",
+                "shadow-2xl shadow-lime-900/30"
+            )}>
+                <div className="flex-none space-y-7 max-w-xl">
                     <a
                         href="https://colorbit.ru"
                         target="_blank"
-                        className="inline-flex gap-x-6 items-center rounded-full p-1 pr-6 border text-sm font-medium duration-150 hover:bg-white"
+                        className="inline-flex gap-x-6 items-center rounded-full p-1 pr-6 border border-app-dark/30 text-sm font-medium duration-150 hover:bg-green-700/10"
                     >
-                        <span className="inline-block rounded-full px-3 py-1 bg-indigo-600 text-white">
+                        <span className="inline-block rounded-full px-3 py-1 bg-app-accent text-white">
                             Спонсор
                         </span>
                         <p className="flex items-center gap-1">
@@ -26,23 +39,18 @@ export const HeroSection: React.FC = memo(({}) => {
                         </p>
                     </a>
 
-                    <H1>
-                        Разрабатывайте приложения легко
+                    <H1 className={roboto.className}>
+                        Визуализатор налички
                     </H1>
 
                     <p>
-                        Готовый шаблон сайта на стеке Ts, React, Tailwind, vite, PHP, Laravel <br/>
-                        со всем необходимым, и даже больше, <br/> чтобы вы могли творить удивительные вещи!
+                        Введите сумму и узнайте, как она выглядит в наличке. Зарядитесь денежной энергией!
                     </p>
 
                     <div className="flex items-center gap-x-3 sm:text-sm first-letter:capitalize">
-                        <FilledArrowLink to="/test">
-                            <span className="hidden sm:block">Смотреть</span> компоненты
+                        <FilledArrowLink to="/#viualize">
+                            Прикоснуться к богатству
                         </FilledArrowLink>
-
-                        <TextArrowLink to="/">
-                            А это для красоты
-                        </TextArrowLink>
                     </div>
                 </div>
 
