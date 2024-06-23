@@ -1,10 +1,13 @@
+import { CurrenciesEnum } from "@/modules/Viualizer/types";
+import { StaticImageData } from "next/image";
+
 export abstract class AbstractBanknote {
-    abstract currency: CurrencyType;
+    abstract currency: CurrenciesEnum;
     abstract denomination : number;
 
-    abstract image : string;
+    abstract image : string | StaticImageData;
 
-    // Сentimeters
+    // Centimeters
     abstract realWidth: number;
     abstract realHeight: number;
     abstract realThickness: number;

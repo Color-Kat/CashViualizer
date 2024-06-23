@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { BsExclamationCircleFill } from "react-icons/bs";
 import { twJoin, twMerge } from "tailwind-merge";
 import { InputProps } from "@/components/Inputs/Input/types";
@@ -22,7 +22,7 @@ export const Input: React.FC<InputProps> = ({
     containerClassName,
     ...props
 }) => {
-
+    const id = useId();
 
     return (
         <div
@@ -32,15 +32,15 @@ export const Input: React.FC<InputProps> = ({
             )}
         >
             {label && <label
-                htmlFor="first_name"
-                className="block text-base font-medium text-gray-600"
+                htmlFor={id}
+                className="block text-lg font-medium text-gray-600"
             >
                 {label}
             </label>}
 
             {description && <div className="block text-xs text-gray-600">{description}</div>}
 
-            <div className={twJoin("relative", (label || description) && 'mt-2')}>
+            <div className={twJoin("relative", (label || description) && 'mt-1.5')}>
                 <SimpleInput
                     data={data}
                     setData={setData}
@@ -49,6 +49,7 @@ export const Input: React.FC<InputProps> = ({
 
                     isError={!!errorMessages}
 
+                    id={id}
                     className={twJoin(
                         className,
                         Icon && 'pl-12'

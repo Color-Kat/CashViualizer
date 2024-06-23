@@ -32,7 +32,7 @@ export const SimpleInput: React.FC<SimpleInputProps> = ({
         <input
             {...props}
 
-            id={name}
+            id={props.id ?? name}
             name={name}
             value={data[name]}
             onChange={changeHandler}
