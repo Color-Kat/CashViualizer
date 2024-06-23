@@ -1,0 +1,1 @@
+type CurrencyType = 'RUB' | 'USD' | 'EUR' | 'CNY';

@@ -24,7 +24,7 @@ const config: Config = {
                     'app-primary':
                         '#25a239',
                     'app-secondary':
-                        '#2467cc',
+                        '#7bbe11',
                     'app-accent':
                         '#0d9415',
 

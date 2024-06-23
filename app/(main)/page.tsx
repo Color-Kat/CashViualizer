@@ -1,12 +1,12 @@
 import { HeroSection } from "@/app/(main)/modules/HeroSection";
-import { Viualizer } from "@/modules/Viualizer/Viualizer";
+import { Visualizer } from "@/modules/Viualizer/Visualizer";
 
 export default function Home() {
     return (
         <>
             <HeroSection/>
 
-            <Viualizer />
+            <Visualizer />
         </>
     );
 }

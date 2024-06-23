@@ -1,22 +1,21 @@
-import React, {useCallback} from 'react';
-import {SimpleInputProps} from "@components/Inputs/Input/types.ts";
-import {twMerge} from "tailwind-merge";
+import React, { useCallback } from 'react';
+import { twMerge } from "tailwind-merge";
+import { SimpleInputProps } from "@/components/Inputs/Input/types";
 
 // Maskable input https://github.com/Color-Kat/victory-park-order/blob/master/resources/js/UI/Form/Input.tsx
 
 export const SimpleInput: React.FC<SimpleInputProps> = ({
-                                                      data,
-                                                      setData,
-                                                      name,
+    data,
+    setData,
+    name,
 
-                                                      onChange,
+    onChange,
 
-                                                      isError,
+    isError,
 
-                                                      className,
-                                                      ...props
-                                                  }) => {
-
+    className,
+    ...props
+}) => {
 
 
     const changeHandler = onChange
@@ -41,8 +40,9 @@ export const SimpleInput: React.FC<SimpleInputProps> = ({
             className={twMerge(
                 "w-full border border-gray-300 block p-2.5",
                 "focus:outline-none focus:ring-2 focus:ring-app-accent/50",
-                "bg-white/70 backdrop-blur-xl text-gray-900 text-sm rounded-lg",
+                "bg-white/70 backdrop-blur-sm text-gray-900 text-xl rounded-2xl shadow-md",
                 "placeholder-gray-400",
+
                 isError && "border-red-500 shadow-red-300 shadow-sm",
                 className
             )}

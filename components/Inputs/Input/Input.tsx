@@ -1,35 +1,36 @@
 import React from 'react';
-import {InputProps} from "@components/Inputs/Input/types.ts";
-import {SimpleInput} from "@components/Inputs/Input/SimpleInput.tsx";
-import {BsExclamationCircleFill} from "react-icons/bs";
-import {twJoin, twMerge} from "tailwind-merge";
-
+import { BsExclamationCircleFill } from "react-icons/bs";
+import { twJoin, twMerge } from "tailwind-merge";
+import { InputProps } from "@/components/Inputs/Input/types";
+import { SimpleInput } from "@/components/Inputs";
 
 
 export const Input: React.FC<InputProps> = ({
-                                                        data,
-                                                        setData,
-                                                        name,
-                                                        onChange,
+    data,
+    setData,
+    name,
+    onChange,
 
-                                                        errorMessages,
+    errorMessages,
 
-                                                        label,
-                                                        description,
+    label,
+    description,
 
-                                                        Icon,
+    Icon,
 
-                                                        className,
-                                                        containerClassName,
-                                                        ...props
-                                                    }) => {
+    className,
+    containerClassName,
+    ...props
+}) => {
 
 
     return (
-        <div className={twMerge(
-            "w-full text-left",
-            containerClassName
-        )}>
+        <div
+            className={twMerge(
+                "w-full text-left",
+                containerClassName
+            )}
+        >
             {label && <label
                 htmlFor="first_name"
                 className="block text-base font-medium text-gray-600"

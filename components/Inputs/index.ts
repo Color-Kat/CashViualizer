@@ -1,18 +1,19 @@
 export {Input, SimpleInput} from './Input';
 
-export {Textarea} from './Textarea.tsx';
+// export {Textarea} from './Textarea';
+//
+// export {Checkbox} from './Checkbox';
+//
+// export {FileInput} from './FileInput';
+//
+// export {RadioGroup} from './RadioGroup';
 
-export {Checkbox} from './Checkbox.tsx';
+export {Select} from './Select';
 
-export {FileInput} from './FileInput.tsx';
+// export {SecondarySelect} from './SecondarySelect';
 
-export {RadioGroup} from './RadioGroup.tsx';
-
-export {Select} from './Select.tsx';
-export {SecondarySelect} from './SecondarySelect.tsx';
-
-export {Autocomplete} from './Autocomplete.tsx';
-
-export {Toggle} from './Toggle.tsx';
-
-export {Calendar} from './Calendar';
+// export {Autocomplete} from './Autocomplete';
+//
+// export {Toggle} from './Toggle';
+//
+// export {Calendar} from './Calendar';

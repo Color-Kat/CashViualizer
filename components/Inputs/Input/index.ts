@@ -1,2 +1,2 @@
-export {SimpleInput} from './SimpleInput.tsx';
-export {Input} from './Input.tsx';
+export {SimpleInput} from './SimpleInput';
+export {Input} from './Input';
