@@ -100,30 +100,31 @@ export const Visualizer: React.FC = memo(({}) => {
                         count={Math.ceil(data.amount / 5000)}
                     />
 
-                    {Array.from({ length: 100 }, () => monetarySystem.banknotes[5000]).map((banknote, i) => {
-                        const randomRotation = Math.random() * 4 - 2; // Случайное вращение от -2 до 2 градусов
-                        const randomX = Math.random() * 10 - 5; // Случайное смещение по X от -5 до 5 пикселей
-                        const randomY = Math.random() * 10 - 5; // Случайное смещение по Y от -5 до 5 пикселей
+                    {/* Using CSS */}
+                    {/*{Array.from({ length: Math.min(Math.ceil(data.amount / 5000), 100) }, () => monetarySystem.banknotes[5000]).map((banknote, i) => {*/}
+                    {/*    const randomRotation = Math.random() * 4 - 2; // Случайное вращение от -2 до 2 градусов*/}
+                    {/*    const randomX = Math.random() * 10 - 5; // Случайное смещение по X от -5 до 5 пикселей*/}
+                    {/*    const randomY = Math.random() * 10 - 5; // Случайное смещение по Y от -5 до 5 пикселей*/}
 
-                        return (
-                            <Image
-                                src={banknote.image}
-                                width={500}
-                                height={500}
-                                alt="5000 рублей"
-                                key={i}
-                                style={{
-                                    position: 'absolute',
-                                    top: `${i * 0.5}px`,
-                                    transform: `rotateX(300deg) rotateZ(30deg) rotateY(${randomRotation}deg) translateX(${randomX}px) translateY(${randomY}px)`,
-                                    zIndex: 100 - i,
-                                    // filter: `brightness(${(50 - i) / 100 + 0.5})`,
-                                    boxShadow: `0 6px 8px rgba(0, 0, 0, 0.07)`
-                                }}
-                                className="absolute right-4"
-                            />
-                        );
-                    })}
+                    {/*    return (*/}
+                    {/*        <Image*/}
+                    {/*            src={banknote.image}*/}
+                    {/*            width={500}*/}
+                    {/*            height={500}*/}
+                    {/*            alt="5000 рублей"*/}
+                    {/*            key={i}*/}
+                    {/*            style={{*/}
+                    {/*                position: 'absolute',*/}
+                    {/*                top: `${i * 0.5}px`,*/}
+                    {/*                transform: `rotateX(300deg) rotateZ(30deg) rotateY(${randomRotation}deg) translateX(${randomX}px) translateY(${randomY}px)`,*/}
+                    {/*                zIndex: 100 - i,*/}
+                    {/*                // filter: `brightness(${(50 - i) / 100 + 0.5})`,*/}
+                    {/*                boxShadow: `0 6px 8px rgba(0, 0, 0, 0.07)`*/}
+                    {/*            }}*/}
+                    {/*            className="absolute right-4"*/}
+                    {/*        />*/}
+                    {/*    );*/}
+                    {/*})}*/}
                 </div>
 
             </div>
