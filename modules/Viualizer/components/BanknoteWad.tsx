@@ -1,29 +1,29 @@
 import React, { useEffect, useRef } from 'react';
 import { AbstractBanknote } from "@/modules/Viualizer/Banknotes/AbstractBanknote";
+import { WadOfMoney } from "@/modules/Viualizer/Money/WadOfMoney";
 
 export enum ViewModeEnum {
     Wad = 'wad',
     All = 'all'
 }
 
-export const BanknoteStack = ({
-    banknote,
-    count,
+export const BanknoteWad = ({
+    wad,
 
     viewMode = ViewModeEnum.Wad,
     wadSize = 100
 }: {
-    banknote: AbstractBanknote,
-    count: number,
+    wad: WadOfMoney,
 
     viewMode: ViewModeEnum,
     wadSize?: number
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const banknote = wad.banknote;
+    const wadsCount = wad.wadsCount;
 
     // Divide plenty of banknotes into small wads
-    const wadsCount = Math.max(Math.ceil(count/wadSize * 10) / 10, 1);
-    count = viewMode === ViewModeEnum.All ? count : Math.min(count, 100);
+    let count = viewMode === ViewModeEnum.All ? wad.count : Math.min(wad.count, 100);
 
     useEffect(() => {
         // Create canvas context

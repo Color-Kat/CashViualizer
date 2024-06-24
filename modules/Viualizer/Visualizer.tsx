@@ -7,9 +7,10 @@ import { AbstractMonetarySystem } from "@/modules/Viualizer/Money/AbstractMoneta
 import { RUBMonetarySystem } from "@/modules/Viualizer/Money/RUBMonetarySystem";
 import { CurrenciesEnum } from "@/modules/Viualizer/types";
 import Image from "next/image";
-import { BanknoteStack, ViewModeEnum } from "@/modules/Viualizer/BanknotesStack";
 import { BorderedButton, PurpleButton } from "@/UI/Buttons";
 import { twJoin } from "tailwind-merge";
+import { Information } from "@/modules/Viualizer/components/Information";
+import { BanknoteWad, ViewModeEnum } from "@/modules/Viualizer/components/BanknoteWad";
 
 const currencies: CurrenciesEnum[] = [
     CurrenciesEnum.RUB,
@@ -34,12 +35,12 @@ export const Visualizer: React.FC = memo(({}) => {
     const [preferredBanknote, setPreferredBanknote] = useState<number>(Object.values(monetarySystem.banknotes).reverse()[0].denomination);
     const [viewMode, setViewMode] = useState<ViewModeEnum>(ViewModeEnum.Wad);
 
-    console.log(monetarySystem.splitMoneyIntoWads(
+    const wadsOfMoney = monetarySystem.splitMoneyIntoWads(
         data.amount,
         preferredBanknote
-    ));
+    );
 
-    // Change money
+    // Change monetary system
     useEffect(() => {
         if (data.currency === 'RUB') setMonetarySystem(new RUBMonetarySystem());
         else if (data.currency === 'USD') setMonetarySystem(new RUBMonetarySystem());
@@ -101,13 +102,14 @@ export const Visualizer: React.FC = memo(({}) => {
                     <div className="flex flex-wrap gap-x-2 gap-y-2 items-stretch justify-stretch mt-1.5">
                         {Object.values(monetarySystem.banknotes).map((banknote) => (
                             <Image
+                                key={banknote.denomination}
                                 src={banknote.image}
                                 alt={`Купюра ${banknote.denomination} ${banknote.currency}`}
                                 width={110}
                                 height={100}
                                 className={twJoin(
                                     "w-40 object-contain cursor-pointer hover:scale-105 transition",
-                                    preferredBanknote === banknote.denomination && "border-2 border-green-700/50 rounded-md"
+                                    preferredBanknote === banknote.denomination && "border-4 border-green-700/50 rounded-md"
                                 )}
                                 onClick={() => setPreferredBanknote(banknote.denomination)}
                             />
@@ -116,44 +118,25 @@ export const Visualizer: React.FC = memo(({}) => {
                 </div>
             </div>
 
+            <Information wads={wadsOfMoney}/>
+
             <div className="mt-8">
                 <h2
                     className="text-2xl font-bold text-gray-700"
                 >
-                    Вот такая куча
+                    Вот такая #котлета
                 </h2>
 
                 <div className="relative min-h-96 columns-2">
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[5000]}
-                        count={Math.ceil(data.amount / 5000)}
-                        viewMode={viewMode}
-                    />
 
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[1000]}
-                        count={Math.ceil(data.amount / 1000)}
-                        viewMode={viewMode}
-
-                    />
-
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[500]}
-                        count={Math.ceil(data.amount / 500)}
-                        viewMode={viewMode}
-                    />
-
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[100]}
-                        count={Math.ceil(data.amount / 100)}
-                        viewMode={viewMode}
-                    />
-
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[50]}
-                        count={Math.ceil(data.amount / 50)}
-                        viewMode={viewMode}
-                    />
+                    {Object.values(wadsOfMoney).map(wad => {
+                        return (
+                            <BanknoteWad
+                                wad={wad}
+                                viewMode={viewMode}
+                            />
+                        );
+                    })}
 
                     {/* Using CSS */}
                     {/*{Array.from({ length: Math.min(Math.ceil(data.amount / 5000), 100) }, () => monetarySystem.banknotes[1000]).map((banknote, i) => {*/}

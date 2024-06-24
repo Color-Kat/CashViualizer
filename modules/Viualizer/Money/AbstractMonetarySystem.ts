@@ -25,7 +25,8 @@ export abstract class AbstractMonetarySystem {
                 result[denomination] = new WadOfMoney({
                     banknote: this.banknotes[denomination],
                     count: count,
-                    amount: denomination * count
+                    amount: denomination * count,
+                    wadsCount: Math.max(Math.ceil(count/100 * 10) / 10, 1)
                 });
             }
         });

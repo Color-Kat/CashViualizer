@@ -9,9 +9,9 @@ export class Banknote1000RUB extends AbstractBanknote {
     public currency = CurrenciesEnum.RUB;
     public image = banknoteImage;
 
-    public realWidth = 15.7;
-    public realHeight = 6.9;
-    public realThickness = 0.0125;
-    public weight = 1;
+    public realWidth = 157;
+    public realHeight = 69;
+    public realThickness = 0.125;
+    public weight = 1.02;
 
 }
