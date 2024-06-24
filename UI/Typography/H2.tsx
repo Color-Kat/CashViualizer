@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {ITypographyElement} from "./types.tsx";
+import {ITypographyElement} from "./types";
 import {twMerge} from "tailwind-merge";
 
 export const H2: React.FC<ITypographyElement> = memo(({

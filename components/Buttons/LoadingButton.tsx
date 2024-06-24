@@ -1,6 +1,6 @@
 import React, {ButtonHTMLAttributes, ReactNode} from 'react';
-import {Loader} from "@UI/Loaders";
-import {StandardButton} from "@UI/Buttons";
+import { StandardButton } from "@/UI/Buttons";
+import { Loader } from "@/UI/Loaders";
 
 interface LoadingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;

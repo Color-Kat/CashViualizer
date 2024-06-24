@@ -1,7 +1,6 @@
 import React, {ReactNode} from "react";
-import {LinkProps} from "react-router-dom";
 
-export interface ILinkProps extends Omit<LinkProps, 'to'>{
+export interface ILinkProps extends Omit<any, 'to'>{
     children: ReactNode;
     to: string;
     className?: string;

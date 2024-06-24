@@ -1,2 +1,2 @@
-export {Modal} from './Modal.tsx';
-export {SecondaryModal} from './SecondaryModal.tsx';
+export {Modal} from './Modal';
+export {SecondaryModal} from './SecondaryModal';

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, DragEvent, useCallback, useRef} from 'react';
 import {BsFillTrashFill} from "react-icons/bs";
-import {PinkButton} from "@UI/Buttons";
+import {PinkButton} from "@/UI/Buttons";
 import {twMerge} from "tailwind-merge";
 
 export interface FileInputProps extends Partial<HTMLInputElement> {

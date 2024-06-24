@@ -1,5 +1,5 @@
 import React from 'react';
-import {useChangeHandler} from "@components/Inputs/hooks/useChangeHandler.ts";
+import {useChangeHandler} from "@/components/Inputs/hooks/useChangeHandler";
 import {twMerge} from "tailwind-merge";
 
 interface TextareaProps{

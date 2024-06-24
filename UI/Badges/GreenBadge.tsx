@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {BadgeProps} from "./types.ts";
+import {BadgeProps} from "./types";
 
 
 export const GreenBadge: React.FC<BadgeProps> = memo(({children}) => {

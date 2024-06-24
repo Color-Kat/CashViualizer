@@ -1,6 +1,5 @@
 import React, {ButtonHTMLAttributes, ReactNode} from 'react';
-import {Loader} from "@UI/Loaders/Loader.tsx";
-import {StandardButton} from "@UI/Buttons";
+import { StandardButton } from "@/UI/Buttons";
 
 interface RippleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;

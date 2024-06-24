@@ -1,5 +1,5 @@
 import React from 'react';
-import {LoaderProps} from "@UI/Loaders/types.ts";
+import {LoaderProps} from "@/UI/Loaders/types";
 import {twJoin} from "tailwind-merge";
 
 /**

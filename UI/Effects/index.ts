@@ -1,3 +1,3 @@
-export {BorderUpLineEffect} from './BorderUpLineEffect.tsx';
-export {BorderRightLineEffect} from './BorderRightLineEffect.tsx';
-export {ShineEffect} from './ShineEffect.tsx';
+export {BorderUpLineEffect} from './BorderUpLineEffect';
+export {BorderRightLineEffect} from './BorderRightLineEffect';
+export {ShineEffect} from './ShineEffect';

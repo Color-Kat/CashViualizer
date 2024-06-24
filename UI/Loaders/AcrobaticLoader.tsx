@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {twJoin} from "tailwind-merge";
-import {LoaderProps} from "@UI/Loaders/types.ts";
+import {LoaderProps} from "@/UI/Loaders/types";
 
 export const AcrobaticLoader: React.FC<LoaderProps> = memo(({className}) => {
     return (

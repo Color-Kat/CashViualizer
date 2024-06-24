@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
-import {FeaturesProps} from "./types.ts";
-import {FeatureItem} from "./FeatureItem.tsx";
-import {SecondaryFeatureItem} from "./SecondaryFeatureItem.tsx";
+import {FeaturesProps} from "./types";
+import {FeatureItem} from "./FeatureItem";
+import {SecondaryFeatureItem} from "./SecondaryFeatureItem";
 
 export const Features: React.FC<FeaturesProps> = memo(({
                                                            features,

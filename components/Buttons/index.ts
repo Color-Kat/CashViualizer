@@ -1,5 +1,5 @@
 import './buttons.scss';
 
-export {Button} from './Button.tsx';
-export {LoadingButton} from './LoadingButton.tsx';
-export {RippleButton} from './RippleButton.tsx';
+export {Button} from './Button';
+export {LoadingButton} from './LoadingButton';
+export {RippleButton} from './RippleButton';

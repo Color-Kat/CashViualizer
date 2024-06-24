@@ -1,3 +1,3 @@
-export {Dropdown} from './Dropdown.tsx';
-export {SecondaryDropdown} from './SecondaryDropdown.tsx';
-export {DoubleDropdown} from './DoubleDropdown.tsx';
+export {Dropdown} from './Dropdown';
+export {SecondaryDropdown} from './SecondaryDropdown';
+export {DoubleDropdown} from './DoubleDropdown';

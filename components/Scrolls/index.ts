@@ -1,1 +1,1 @@
-export {FloatingScrollbar} from './FloatingScrollbar.tsx';
+export {FloatingScrollbar} from './FloatingScrollbar';

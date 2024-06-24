@@ -8,10 +8,10 @@ export {
 
     addDays,
     addMonths
-} from './dates.ts';
+} from './dates';
 
-export {formatDate, formatDateString} from './formatDate.ts';
+export {formatDate, formatDateString} from './formatDate';
 
-export {dateDiff} from './dateDiff.ts';
+export {dateDiff} from './dateDiff';
 
-export {timestampToTime} from './timestampToTime.ts';
+export {timestampToTime} from './timestampToTime';

@@ -1,4 +1,4 @@
-import {formatDate} from "./formatDate.ts";
+import {formatDate} from "./formatDate";
 
 // Today date
 const today = new Date();

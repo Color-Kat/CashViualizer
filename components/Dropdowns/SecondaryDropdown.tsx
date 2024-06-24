@@ -1,8 +1,8 @@
 import React, {Fragment, ReactNode, useMemo} from 'react';
 import {Menu, Transition} from "@headlessui/react";
 import {BsChevronDown} from "react-icons/bs";
-import {IDropdownItem} from "./components/DropdownItem.tsx";
-import {SecondaryDropdownItem} from "./components/SecondaryDropdownItem.tsx";
+import {IDropdownItem} from "./components/DropdownItem";
+import {SecondaryDropdownItem} from "./components/SecondaryDropdownItem";
 import {twMerge} from "tailwind-merge";
 
 interface DropdownProps {
@@ -107,7 +107,7 @@ export const SecondaryDropdown: React.FC<
 
                             {/* Iterate group items */}
                             {items.map((item, i) => (
-                                <SecondaryDropdownItem key={item.text + i} item={item}/>
+                                <SecondaryDropdownItem key={(item?.text ?? 0) + i.toString()} item={item}/>
                             ))}
 
                         </div>

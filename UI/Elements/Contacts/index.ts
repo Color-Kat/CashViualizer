@@ -1,2 +1,2 @@
-export {PhoneNumber} from './PhoneNumber.tsx';
-export {EmailAddress} from './EmailAddress.tsx';
+export {PhoneNumber} from './PhoneNumber';
+export {EmailAddress} from './EmailAddress';

@@ -3,7 +3,7 @@ import {Menu, Transition} from '@headlessui/react';
 import {BsThreeDotsVertical} from "react-icons/bs";
 
 import {twMerge} from "tailwind-merge";
-import {IThreeDotMenuItem, ThreeDotMenuItem} from "@components/ThreeDotMenu/ThreeDotMenuItem.tsx";
+import {IThreeDotMenuItem, ThreeDotMenuItem} from "@/components/ThreeDotMenu/ThreeDotMenuItem";
 
 interface ThreeDotMenuProps {
     header?: string;

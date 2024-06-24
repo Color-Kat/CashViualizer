@@ -1,1 +1,1 @@
-export {Popover} from './Popover.tsx'
+export {Popover} from './Popover'

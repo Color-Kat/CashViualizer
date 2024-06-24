@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {IFeature} from "@UI/Features/types.ts";
+import {IFeature} from "@/UI/Features/types";
 
 
 export const SecondaryFeatureItem: React.FC<{feature: IFeature}> = memo(({feature}) => {

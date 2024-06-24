@@ -43,7 +43,7 @@ export default function Home() {
             <Visualizer />
 
             <Section className="text-lg text-app-accent">
-                С любовью by @ColorKat.
+                С любовью by <a href="https://t.me/ColorKat" className="underline">@ColorKat.</a>
             </Section>
         </>
     );

@@ -54,7 +54,7 @@ export const HeroSection: React.FC = memo(({}) => {
                     width="452"
                     height="256"
                     className="w-full mx-auto md:w-10/12 lg:w-full"
-                    alt="Как выглядит миллион?"
+                    alt="Как выглядит 500к?"
                 />
             </div>
         </Section>

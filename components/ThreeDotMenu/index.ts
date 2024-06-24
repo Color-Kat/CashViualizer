@@ -1,1 +1,1 @@
-export {ThreeDotMenu} from './ThreeDotMenu.tsx';
+export {ThreeDotMenu} from './ThreeDotMenu';
