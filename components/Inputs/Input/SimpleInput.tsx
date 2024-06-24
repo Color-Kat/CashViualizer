@@ -23,7 +23,9 @@ export const SimpleInput: React.FC<SimpleInputProps> = ({
         : useCallback(
             (e: any) => setData((prev: any) => ({
                 ...prev,
-                [name]: e.target.value
+                [name]: props.type === 'number'
+                    ? Math.min(Math.max(+(props.min ?? 0), e.target.value), +(props.max ?? Infinity))
+                    : e.target.value
             })),
             []
         );
