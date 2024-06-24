@@ -94,10 +94,30 @@ export const Visualizer: React.FC = memo(({}) => {
                     Вот такая куча
                 </h2>
 
-                <div className="relative min-h-96">
+                <div className="relative min-h-96 columns-2">
                     <BanknoteStack
                         banknote={monetarySystem.banknotes[5000]}
                         count={Math.ceil(data.amount / 5000)}
+                    />
+
+                    <BanknoteStack
+                        banknote={monetarySystem.banknotes[1000]}
+                        count={Math.ceil(data.amount / 1000)}
+                    />
+
+                    <BanknoteStack
+                        banknote={monetarySystem.banknotes[500]}
+                        count={Math.ceil(data.amount / 500)}
+                    />
+
+                    <BanknoteStack
+                        banknote={monetarySystem.banknotes[100]}
+                        count={Math.ceil(data.amount / 100)}
+                    />
+
+                    <BanknoteStack
+                        banknote={monetarySystem.banknotes[50]}
+                        count={Math.ceil(data.amount / 50)}
                     />
 
                     {/* Using CSS */}
