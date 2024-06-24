@@ -1,14 +1,29 @@
 import React, { useEffect, useRef } from 'react';
 import { AbstractBanknote } from "@/modules/Viualizer/Banknotes/AbstractBanknote";
 
+export enum ViewModeEnum {
+    Wad = 'wad',
+    All = 'all'
+}
+
 export const BanknoteStack = ({
     banknote,
-    count
+    count,
+
+    viewMode = ViewModeEnum.Wad,
+    wadSize = 100
 }: {
     banknote: AbstractBanknote,
-    count: number
+    count: number,
+
+    viewMode: ViewModeEnum,
+    wadSize?: number
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    // Divide plenty of banknotes into small wads
+    const wadsCount = Math.max(Math.ceil(count/wadSize * 10) / 10, 1);
+    count = viewMode === ViewModeEnum.All ? count : Math.min(count, 100);
 
     useEffect(() => {
         // Create canvas context
@@ -20,8 +35,8 @@ export const BanknoteStack = ({
         image.src = (banknote.image as any).src as string;
 
         image.onload = () => {
-            // ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < Math.min(count, 100); i++) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < count; i++) {
                 const randomRotation = Math.random() * 4 - 2; // Random rotation from -2 to 2 deg
                 const randomX = Math.random() * 10 - 5; // Random X translation from -5 to 5 px
                 const randomY = Math.random() * 10 - 5; // Random Y translation from -5 to 5 px
@@ -53,9 +68,11 @@ export const BanknoteStack = ({
             }
 
             // Add wad money multiplier
-            ctx.fillStyle = '#16a12f';
-            ctx.font = 'bold 75px Verdana'
-            ctx.fillText(`X${(count/100).toFixed(1)}`, 1, canvas.height-80);
+            if(viewMode == ViewModeEnum.Wad && wadsCount > 1) {
+                ctx.fillStyle = '#16a12f';
+                ctx.font = 'bold 75px Verdana'
+                ctx.fillText(`X${wadsCount}`, 1, canvas.height-80);
+            }
 
             // Watermark
             ctx.fillStyle = 'rgba(37,162,57,0.1)';
@@ -64,7 +81,7 @@ export const BanknoteStack = ({
 
             ctx.save();
         };
-    }, [banknote, count]);
+    }, [banknote, count, wadsCount, viewMode]);
 
     return <canvas ref={canvasRef} width={500} height={count*0.7 + 300} />;
 };

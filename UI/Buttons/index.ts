@@ -1,22 +1,21 @@
-import './buttons.scss';
 
 // Quick change button colors: https://flowbite.com/docs/components/buttons/
 
-export {StandardButton} from './StandardButton.tsx';
-export {RedButton} from './RedButton.tsx';
-export {SuccessButton} from './SuccessButton.tsx';
-export {BlueButton} from './BlueButton.tsx';
-export {PurpleButton} from './PurpleButton.tsx';
-export {PinkButton} from './PinkButton.tsx';
-export {LimeButton} from './LimeButton.tsx';
+export {StandardButton} from './StandardButton';
+export {RedButton} from './RedButton';
+export {SuccessButton} from './SuccessButton';
+export {BlueButton} from './BlueButton';
+export {PurpleButton} from './PurpleButton';
+export {PinkButton} from './PinkButton';
+export {LimeButton} from './LimeButton';
 
-export {GrayButton} from './GrayButton.tsx';
-export {WhiteButton} from './WhiteButton.tsx';
+export {GrayButton} from './GrayButton';
+export {WhiteButton} from './WhiteButton';
 
-export {BorderedButton} from './BorderedButton.tsx';
-export {PurpleBorderedButton} from './PurpleBorderedButton.tsx';
-export {RedBorderedButton} from './RedBorderedButton.tsx';
+export {BorderedButton} from './BorderedButton';
+export {PurpleBorderedButton} from './PurpleBorderedButton';
+export {RedBorderedButton} from './RedBorderedButton';
 
-export {StandardFilledButton} from './StandardFilledButton.tsx';
-export {RedFilledButton} from './RedFilledButton.tsx';
+export {StandardFilledButton} from './StandardFilledButton';
+export {RedFilledButton} from './RedFilledButton';
 
