@@ -25,7 +25,6 @@ export const Information: FC<InformationProps> = memo(({ wads }) => {
             const newData = { ...initialData };
 
             Object.values(wads).forEach((wad) => {
-                console.log(wad.banknote.weight)
                 newData.wadsCount += wad.wadsCount;
                 newData.banknotesCount += wad.count;
                 newData.totalWeight += wad.banknote.weight * wad.count;

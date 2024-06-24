@@ -127,11 +127,12 @@ export const Visualizer: React.FC = memo(({}) => {
                     Вот такая #котлета
                 </h2>
 
-                <div className="relative min-h-96 columns-2">
+                <div className="relative min-h-6 columns-2">
 
                     {Object.values(wadsOfMoney).map(wad => {
                         return (
                             <BanknoteWad
+                                key={wad.banknote.denomination}
                                 wad={wad}
                                 viewMode={viewMode}
                             />

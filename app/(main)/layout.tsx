@@ -7,8 +7,8 @@ import { twJoin } from "tailwind-merge";
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
-    title: "Визуализатор денег",
-    description: "Введите сумму денег и узнайте, как она будет выглядеть в наличных деньгах.",
+    title: "Визуализатор налички | Cash Visualizer",
+    description: "Визуализатор налички позволяет вам ввести сумму денег, выбрать валюту и узнать, как будет выглядеть такая стопка наличных, сколько в ней купюр, сколько она весит, какого размера и т.д.",
 };
 
 export default function RootLayout({
