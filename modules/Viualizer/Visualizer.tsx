@@ -105,20 +105,20 @@ export const Visualizer: React.FC = memo(({}) => {
                         count={Math.ceil(data.amount / 1000)}
                     />
 
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[500]}
-                        count={Math.ceil(data.amount / 500)}
-                    />
+                    {/*<BanknoteStack*/}
+                    {/*    banknote={monetarySystem.banknotes[500]}*/}
+                    {/*    count={Math.ceil(data.amount / 500)}*/}
+                    {/*/>*/}
 
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[100]}
-                        count={Math.ceil(data.amount / 100)}
-                    />
+                    {/*<BanknoteStack*/}
+                    {/*    banknote={monetarySystem.banknotes[100]}*/}
+                    {/*    count={Math.ceil(data.amount / 100)}*/}
+                    {/*/>*/}
 
-                    <BanknoteStack
-                        banknote={monetarySystem.banknotes[50]}
-                        count={Math.ceil(data.amount / 50)}
-                    />
+                    {/*<BanknoteStack*/}
+                    {/*    banknote={monetarySystem.banknotes[50]}*/}
+                    {/*    count={Math.ceil(data.amount / 50)}*/}
+                    {/*/>*/}
 
                     {/* Using CSS */}
                     {/*{Array.from({ length: Math.min(Math.ceil(data.amount / 5000), 100) }, () => monetarySystem.banknotes[5000]).map((banknote, i) => {*/}

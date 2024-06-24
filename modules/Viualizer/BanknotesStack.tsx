@@ -21,10 +21,10 @@ export const BanknoteStack = ({
 
         image.onload = () => {
             // ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < count; i++) {
-                const randomRotation = Math.random() * 4 - 2; // Случайное вращение от -2 до 2 градусов
-                const randomX = Math.random() * 10 - 5; // Случайное смещение по X от -5 до 5 пикселей
-                const randomY = Math.random() * 10 - 5; // Случайное смещение по Y от -5 до 5 пикселей
+            for (let i = 0; i < Math.min(count, 100); i++) {
+                const randomRotation = Math.random() * 4 - 2; // Random rotation from -2 to 2 deg
+                const randomX = Math.random() * 10 - 5; // Random X translation from -5 to 5 px
+                const randomY = Math.random() * 10 - 5; // Random Y translation from -5 to 5 px
 
                 ctx.save();
 
@@ -47,14 +47,21 @@ export const BanknoteStack = ({
                     150 + count*0.7 + randomY - i*0.7 // translateY
                 );
                 ctx.rotate((randomRotation * Math.PI) / 180 + 0.32);
-                ctx.drawImage(image, -150, -75, 500, 90); // Отображаем изображение купюры
+                ctx.drawImage(image, -150, -75, 500, 90); // Draw banknote
 
                 ctx.restore();
             }
 
+            // Add wad money multiplier
+            ctx.fillStyle = '#16a12f';
+            ctx.font = 'bold 75px Verdana'
+            ctx.fillText(`X${(count/100).toFixed(1)}`, 1, canvas.height-80);
+
+            // Watermark
             ctx.fillStyle = 'rgba(37,162,57,0.1)';
             ctx.font = "bold 16px Inter";
             ctx.fillText("CashVisualizer By @ColorKat", 5, canvas.height-5);
+
             ctx.save();
         };
     }, [banknote, count]);
