@@ -53,7 +53,7 @@ export const Visualizer: React.FC = memo(({}) => {
 
     return (
         <Section className="md:mt-16 md:mb-10 sm:my-20 mt-8 mb-16">
-            <div className="settings flex lg:gap-12 gap-6">
+            <div className="settings flex lg:gap-12 gap-6 md:flex-nowrap flex-wrap">
                 <div className="flex flex-col gap-4">
                     <div className="flex gap-x-5 gap-y-2 items-stretch" id="visualize">
                         <Input
@@ -76,7 +76,7 @@ export const Visualizer: React.FC = memo(({}) => {
                         />
                     </div>
 
-                    <div>
+                    <div className="">
                         <PurpleButton
                             className="w-full"
                             onClick={() => setViewMode(viewMode == ViewModeEnum.Wad ? ViewModeEnum.All : ViewModeEnum.Wad)}
@@ -127,7 +127,7 @@ export const Visualizer: React.FC = memo(({}) => {
                     Вот такая #котлета
                 </h2>
 
-                <div className="relative min-h-6 columns-2">
+                <div className="relative min-h-6 columns-2 overflow-x-auto">
 
                     {Object.values(wadsOfMoney).map(wad => {
                         return (
@@ -169,6 +169,5 @@ export const Visualizer: React.FC = memo(({}) => {
             </div>
 
         </Section>
-    )
-        ;
+    );
 });

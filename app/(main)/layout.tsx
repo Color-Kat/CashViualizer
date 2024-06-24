@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
     title: "Визуализатор налички | Cash Visualizer",
-    description: "Визуализатор налички позволяет вам ввести сумму денег, выбрать валюту и узнать, как будет выглядеть такая стопка наличных, сколько в ней купюр, сколько она весит, какого размера и т.д.",
+    description: "Визуализатор налички позволяет вам ввести сумму денег, выбрать валюту и узнать, как будет выглядеть такая стопка наличных, сколько в ней купюр, сколько она весит, какого она размера и т.д.",
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
         <html lang="ru">
         <body className={twJoin(
             inter.className,
-            'bg-app text-app-dark text-2xl'
+            'bg-app text-app-dark md:text-2xl text-lg'
         )}>
             <Page>
                 <main>

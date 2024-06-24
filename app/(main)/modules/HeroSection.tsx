@@ -18,18 +18,18 @@ const roboto = Roboto({
 export const HeroSection: React.FC = memo(({}) => {
     return (
         <Section className="md:mt-16 md:mb-10 sm:my-20 mt-8 mb-16 flex">
-            <div className="flex-none space-y-7 max-w-xl">
+            <div className="space-y-7 max-w-xl">
                 <a
                     href="https://colorbit.ru"
                     target="_blank"
-                    className="inline-flex gap-x-6 items-center rounded-full p-1 pr-6 border border-app-dark/30 text-sm font-medium duration-150 hover:bg-green-700/10"
+                    className="inline-flex gap-x-2 sm:gap-x-6 items-center rounded-full p-1 pr-6 border border-app-dark/30 text-xs sm:text-sm font-medium duration-150 hover:bg-green-700/10"
                 >
-                        <span className="inline-block rounded-full px-3 py-1 bg-app-accent text-white">
-                            Спонсор
-                        </span>
+                    <span className="inline-block rounded-full px-3 py-1 bg-app-accent text-white">
+                        Спонсор
+                    </span>
                     <p className="flex items-center gap-1">
                         Colorbit.ru - симулятор майнинга
-                        <FaAngleRight />
+                        <FaAngleRight className="xs:block hidden" />
                     </p>
                 </a>
 
@@ -37,7 +37,7 @@ export const HeroSection: React.FC = memo(({}) => {
                     Визуализатор налички
                 </H1>
 
-                <p>
+                <p className="w-full">
                     Введите сумму и узнайте, как она выглядит в наличке. Зарядитесь денежной энергией!
                 </p>
 

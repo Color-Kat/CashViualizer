@@ -84,5 +84,4 @@ export const BanknoteWad = ({
     }, [banknote, count, wadsCount, viewMode]);
 
     return <canvas ref={canvasRef} width={500} height={count*0.7 + 300}/>;
-    return <canvas ref={canvasRef} width={500} height={count*0.7 + 300}/>;
 };

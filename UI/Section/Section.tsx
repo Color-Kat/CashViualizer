@@ -8,7 +8,7 @@ export const Section: React.FC<{
     = React.memo(({children, className = ""}) => {
     return (
         <div className={twMerge(
-            "p-7 rounded-3xl text-gray-600",
+            "md:p-7 p-5 rounded-3xl text-gray-600",
             // "bg-lime-50/80",
             "bg-gradient-to-br from-lime-50/90 to-lime-200/50",
             "shadow-2xl shadow-lime-900/30",
