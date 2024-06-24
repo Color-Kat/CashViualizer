@@ -55,7 +55,7 @@ export const Visualizer: React.FC = memo(({}) => {
         <Section className="md:mt-16 md:mb-10 sm:my-20 mt-8 mb-16">
             <div className="settings flex lg:gap-12 gap-6">
                 <div className="flex flex-col gap-4">
-                    <div className="flex gap-x-5 gap-y-2 items-stretch">
+                    <div className="flex gap-x-5 gap-y-2 items-stretch" id="visualize">
                         <Input
                             data={data}
                             setData={setData}

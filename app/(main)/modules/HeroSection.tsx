@@ -42,7 +42,7 @@ export const HeroSection: React.FC = memo(({}) => {
                 </p>
 
                 <div className="flex items-center gap-x-3 sm:text-sm first-letter:capitalize">
-                    <FilledArrowLink to="/#viualize">
+                    <FilledArrowLink to="/#visualize">
                         Прикоснуться к богатству
                     </FilledArrowLink>
                 </div>
