@@ -18,6 +18,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
+        <head>
+            <script>window.yaContextCb=window.yaContextCb||[]</script>
+            <script src="https://yandex.ru/ads/system/context.js" async></script>
+        </head>
         <body className={twJoin(
             inter.className,
             'bg-app text-app-dark md:text-2xl text-lg'

@@ -63,7 +63,7 @@ export const Visualizer: React.FC = memo(({}) => {
                             label="Сумма"
                             type="number"
                             max={1000000000000}
-                            min={100}
+                            min={0}
                             step="100"
                         />
 
