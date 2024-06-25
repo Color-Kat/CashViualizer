@@ -7,10 +7,11 @@ import { AbstractMonetarySystem } from "@/modules/Viualizer/Money/AbstractMoneta
 import { RUBMonetarySystem } from "@/modules/Viualizer/Money/RUBMonetarySystem";
 import { CurrenciesEnum } from "@/modules/Viualizer/types";
 import Image from "next/image";
-import { BorderedButton, PurpleButton } from "@/UI/Buttons";
+import { BorderedButton, PurpleButton, WhiteButton } from "@/UI/Buttons";
 import { twJoin } from "tailwind-merge";
 import { Information } from "@/modules/Viualizer/components/Information";
 import { BanknoteWad, ViewModeEnum } from "@/modules/Viualizer/components/BanknoteWad";
+import { USDMonetarySystem } from "@/modules/Viualizer/Money/USDMonetarySystem";
 
 const currencies: CurrenciesEnum[] = [
     CurrenciesEnum.RUB,
@@ -28,11 +29,13 @@ export const Visualizer: React.FC = memo(({}) => {
         amount: number,
         currency: CurrenciesEnum
     }>({
-        amount: 5000,
+        amount: 500000,
         currency: CurrenciesEnum.RUB,
     });
 
     const [preferredBanknote, setPreferredBanknote] = useState<number>(Object.values(monetarySystem.banknotes).reverse()[0].denomination);
+    const [scale, setScale] = useState<number>(1);
+    const [background, setBackground] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<ViewModeEnum>(ViewModeEnum.Wad);
 
     const wadsOfMoney = monetarySystem.splitMoneyIntoWads(
@@ -43,7 +46,7 @@ export const Visualizer: React.FC = memo(({}) => {
     // Change monetary system
     useEffect(() => {
         if (data.currency === 'RUB') setMonetarySystem(new RUBMonetarySystem());
-        else if (data.currency === 'USD') setMonetarySystem(new RUBMonetarySystem());
+        else if (data.currency === 'USD') setMonetarySystem(new USDMonetarySystem());
         else if (data.currency === 'EUR') setMonetarySystem(new RUBMonetarySystem());
         else if (data.currency === 'CNY') setMonetarySystem(new RUBMonetarySystem());
         else setMonetarySystem(new RUBMonetarySystem());
@@ -55,7 +58,10 @@ export const Visualizer: React.FC = memo(({}) => {
         <Section className="md:mt-16 md:mb-10 sm:my-20 mt-8 mb-16">
             <div className="settings flex lg:gap-12 gap-6 md:flex-nowrap flex-wrap">
                 <div className="flex flex-col gap-4">
-                    <div className="flex gap-x-5 gap-y-2 items-stretch" id="visualize">
+                    <div
+                        className="flex gap-x-5 gap-y-2 items-stretch"
+                        id="visualize"
+                    >
                         <Input
                             data={data}
                             setData={setData}
@@ -90,6 +96,33 @@ export const Visualizer: React.FC = memo(({}) => {
                             }
                         </PurpleButton>
                     </div>
+
+                    <div className="flex gap-2">
+                        {[1, 1.5, 2, 3, 4, 5].map(scaleCoef => (
+                            <WhiteButton
+                                key={scaleCoef}
+                                onClick={() => setScale(scaleCoef)}
+                                className={twJoin(
+                                    "p-1 w-max",
+                                    scaleCoef == scale && "bg-app-accent hover:bg-app-accent text-white transition"
+                                )}
+                            >
+                                {scaleCoef * 100}%
+                            </WhiteButton>
+                        ))}
+                    </div>
+
+                    <div className="flex gap-2">
+                        <Input
+                            data={{}}
+                            setData={() => {
+                            }}
+                            onChange={(e: any) => setBackground(e.target.value)}
+                            name="background"
+                            placeholder="Ссылка на фон"
+                            className="text-sm py-1"
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -105,8 +138,8 @@ export const Visualizer: React.FC = memo(({}) => {
                                 key={banknote.denomination}
                                 src={banknote.image}
                                 alt={`Купюра ${banknote.denomination} ${banknote.currency}`}
-                                width={110}
-                                height={100}
+                                width={300}
+                                height={300}
                                 className={twJoin(
                                     "w-40 object-contain cursor-pointer hover:scale-105 transition",
                                     preferredBanknote === banknote.denomination && "border-4 border-green-700/50 rounded-md"
@@ -118,7 +151,7 @@ export const Visualizer: React.FC = memo(({}) => {
                 </div>
             </div>
 
-            <Information wads={wadsOfMoney}/>
+            <Information wads={wadsOfMoney} />
 
             <div className="mt-8">
                 <h2
@@ -127,43 +160,47 @@ export const Visualizer: React.FC = memo(({}) => {
                     Вот такая #котлета
                 </h2>
 
-                <div className="relative min-h-6 columns-2 overflow-x-auto">
+                <div className="overflow-x-auto w-full">
+                    <div className="relative min-h-6 columns-2 w-max">
 
-                    {Object.values(wadsOfMoney).map(wad => {
-                        return (
-                            <BanknoteWad
-                                key={wad.banknote.denomination}
-                                wad={wad}
-                                viewMode={viewMode}
-                            />
-                        );
-                    })}
+                        {Object.values(wadsOfMoney).map(wad => {
+                            return (
+                                <BanknoteWad
+                                    key={wad.banknote.denomination}
+                                    wad={wad}
+                                    viewMode={viewMode}
+                                    scale={scale}
+                                    background={background}
+                                />
+                            );
+                        })}
 
-                    {/* Using CSS */}
-                    {/*{Array.from({ length: Math.min(Math.ceil(data.amount / 5000), 100) }, () => monetarySystem.banknotes[1000]).map((banknote, i) => {*/}
-                    {/*    const randomRotation = Math.random() * 4 - 2; // Случайное вращение от -2 до 2 градусов*/}
-                    {/*    const randomX = Math.random() * 10 - 5; // Случайное смещение по X от -5 до 5 пикселей*/}
-                    {/*    const randomY = Math.random() * 10 - 5; // Случайное смещение по Y от -5 до 5 пикселей*/}
+                        {/* Using CSS */}
+                        {/*{Array.from({ length: Math.min(Math.ceil(data.amount / 5000), 100) }, () => monetarySystem.banknotes[50]).map((banknote, i) => {*/}
+                        {/*    const randomRotation = Math.random() * 4 - 2; // Случайное вращение от -2 до 2 градусов*/}
+                        {/*    const randomX = Math.random() * 10 - 5; // Случайное смещение по X от -5 до 5 пикселей*/}
+                        {/*    const randomY = Math.random() * 10 - 5; // Случайное смещение по Y от -5 до 5 пикселей*/}
 
-                    {/*    return (*/}
-                    {/*        <Image*/}
-                    {/*            src={banknote.image}*/}
-                    {/*            width={500}*/}
-                    {/*            height={500}*/}
-                    {/*            alt="5000 рублей"*/}
-                    {/*            key={i}*/}
-                    {/*            style={{*/}
-                    {/*                position: 'absolute',*/}
-                    {/*                top: `${i * 0.5}px`,*/}
-                    {/*                transform: `rotateX(300deg) rotateZ(30deg) rotateY(${randomRotation}deg) translateX(${randomX}px) translateY(${randomY}px)`,*/}
-                    {/*                zIndex: 100 - i,*/}
-                    {/*                // filter: `brightness(${(50 - i) / 100 + 0.5})`,*/}
-                    {/*                boxShadow: `0 6px 8px rgba(0, 0, 0, 0.07)`*/}
-                    {/*            }}*/}
-                    {/*            className="absolute right-4"*/}
-                    {/*        />*/}
-                    {/*    );*/}
-                    {/*})}*/}
+                        {/*    return (*/}
+                        {/*        <Image*/}
+                        {/*            src={banknote.image}*/}
+                        {/*            width={500}*/}
+                        {/*            height={500}*/}
+                        {/*            alt="5000 рублей"*/}
+                        {/*            key={i}*/}
+                        {/*            style={{*/}
+                        {/*                position: 'absolute',*/}
+                        {/*                top: `${i * 0.5}px`,*/}
+                        {/*                transform: `rotateX(300deg) rotateZ(30deg) rotateY(${randomRotation}deg) translateX(${randomX}px) translateY(${randomY}px)`,*/}
+                        {/*                zIndex: 100 - i,*/}
+                        {/*                // filter: `brightness(${(50 - i) / 100 + 0.5})`,*/}
+                        {/*                boxShadow: `0 6px 8px rgba(0, 0, 0, 0.07)`*/}
+                        {/*            }}*/}
+                        {/*            className="absolute right-4"*/}
+                        {/*        />*/}
+                        {/*    );*/}
+                        {/*})}*/}
+                    </div>
                 </div>
 
             </div>

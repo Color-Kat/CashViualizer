@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { AbstractBanknote } from "@/modules/Viualizer/Banknotes/AbstractBanknote";
 import { WadOfMoney } from "@/modules/Viualizer/Money/WadOfMoney";
 
 export enum ViewModeEnum {
@@ -9,13 +8,15 @@ export enum ViewModeEnum {
 
 export const BanknoteWad = ({
     wad,
-
     viewMode = ViewModeEnum.Wad,
+    scale = 1,
+    background = null,
     wadSize = 100
 }: {
     wad: WadOfMoney,
-
     viewMode: ViewModeEnum,
+    scale?: number,
+    background?: string | null,
     wadSize?: number
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,32 +26,67 @@ export const BanknoteWad = ({
     // Divide plenty of banknotes into small wads
     let count = viewMode === ViewModeEnum.All ? wad.count : Math.min(wad.count, 100);
 
-    useEffect(() => {
+    const draw = async () => {
         // Create canvas context
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
-        if(!canvas || !ctx) return;
+        if (!canvas || !ctx) return;
 
+        // Draw background
+        if(background) {
+            await new Promise(resolve =>  {
+                const texture = new Image();
+                texture.src = background;
+
+                texture.onload = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(texture, 0, 0, canvas.width, canvas.height);
+                    ctx.save();
+                    resolve(true);
+                }
+
+                texture.onerror = () => resolve(false);
+            });
+        }
+
+        // Draw a wad
         const image = new Image();
-        image.src = (banknote.image as any).src as string;
-
+        image.src = (banknote.image as any).src;
         image.onload = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < count; i++) {
                 const randomRotation = Math.random() * 4 - 2; // Random rotation from -2 to 2 deg
                 const randomX = Math.random() * 10 - 5; // Random X translation from -5 to 5 px
                 const randomY = Math.random() * 10 - 5; // Random Y translation from -5 to 5 px
 
+                const width = 500 / 157 * banknote.realWidth * scale;
+                const height = 90 / 69 * banknote.realHeight * scale;
+
                 ctx.save();
 
                 // Shadow
-                ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
-                ctx.shadowBlur = 6;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 6;
+                if (i > 0 || count <= 10) {
+                    ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
+                    ctx.shadowBlur = 6;
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 6;
+                } else if (count > 10) {
+                    ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
+                    ctx.shadowBlur = 15;
+                    ctx.shadowOffsetX = -23;
+                    ctx.shadowOffsetY = 20;
+                }
 
-                ctx.strokeStyle = 'transparent';
-                ctx.strokeRect(-150, -75, 450, 120);
+                let translateX =
+                        (scale == 1 ? 155 : 130) * scale + // Base position
+                        randomX // Random banknote translation
+                    // + Math.floor(i / 100) * 150 // Next wad
+                ;
+                let translateY =
+                        140 * scale + // Base position
+                        count * 0.7 +  // Wad height
+                        randomY - i * 0.7 // Random banknote translation
+                    // - Math.floor(i/100)*80
+                ;
 
                 // ctx.translate(250 + randomX, 250 + randomY - i*0.5); // Перемещаем к центру холста
                 ctx.setTransform(
@@ -58,30 +94,39 @@ export const BanknoteWad = ({
                     -0.078, // Vertical skew
                     -0.8, // Horizontal skew
                     1, // Vertical scale
-                    150 + randomX, // translateX
-                    150 + count*0.7 + randomY - i*0.7 // translateY
+                    translateX,
+                    translateY
                 );
                 ctx.rotate((randomRotation * Math.PI) / 180 + 0.32);
-                ctx.drawImage(image, -150, -75, 500, 90); // Draw banknote
+                ctx.drawImage(image, -150, -75, width, height); // Draw banknote
 
                 ctx.restore();
             }
 
             // Add wad money multiplier
-            if(viewMode == ViewModeEnum.Wad && wadsCount > 1) {
+            if (viewMode == ViewModeEnum.Wad && wadsCount > 1) {
                 ctx.fillStyle = '#16a12f';
                 ctx.font = 'bold 75px Verdana'
-                ctx.fillText(`X${wadsCount}`, 1, canvas.height-80);
+                ctx.fillText(`X${wadsCount}`, 1, canvas.height - 80);
             }
 
             // Watermark
             ctx.fillStyle = 'rgba(37,162,57,0.1)';
             ctx.font = "bold 16px Inter";
-            ctx.fillText("CashVisualizer By @ColorKat", 5, canvas.height-5);
+            ctx.fillText("CashVisualizer By @ColorKat", 5, canvas.height - 5);
 
             ctx.save();
         };
-    }, [banknote, count, wadsCount, viewMode]);
+    }
 
-    return <canvas ref={canvasRef} width={500} height={count*0.7 + 300}/>;
+    // Rerender when parameters changed
+    useEffect(() => {
+        draw();
+    }, [banknote, count, wadsCount, viewMode, scale, background]);
+
+    return <canvas
+        ref={canvasRef}
+        width={500 * scale}
+        height={(count * 0.7 + 300) * scale}
+    />;
 };
