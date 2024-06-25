@@ -60,6 +60,7 @@ export const BanknoteWad = ({
 
                 const width = 500 / 157 * banknote.realWidth * scale;
                 const height = 90 / 69 * banknote.realHeight * scale;
+                const thickness = 0.7 / 0.125 * banknote.realThickness * scale;
 
                 ctx.save();
 
@@ -84,7 +85,7 @@ export const BanknoteWad = ({
                 let translateY =
                         140 * scale + // Base position
                         count * 0.7 +  // Wad height
-                        randomY - i * 0.7 // Random banknote translation
+                        randomY - i * thickness // Random banknote translation
                     // - Math.floor(i/100)*80
                 ;
 
