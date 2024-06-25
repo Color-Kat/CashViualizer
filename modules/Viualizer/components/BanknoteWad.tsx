@@ -84,7 +84,7 @@ export const BanknoteWad = ({
                 ;
                 let translateY =
                         140 * scale + // Base position
-                        count * 0.7 +  // Wad height
+                        count * thickness +  // Wad height
                         randomY - i * thickness // Random banknote translation
                     // - Math.floor(i/100)*80
                 ;

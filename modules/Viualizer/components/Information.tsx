@@ -39,7 +39,7 @@ export const Information: FC<InformationProps> = memo(({ wads }) => {
     }, [wads]);
 
     return (
-        <div className="mt-8 ax-w-[350px] w-full text-lg md:text-2xl">
+        <div className="mt-8 ax-w-[350px] w-full text-lg">
             <h2
                 className="text-2xl font-bold text-gray-700 mb-2"
             >
