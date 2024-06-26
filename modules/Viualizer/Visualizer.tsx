@@ -29,14 +29,14 @@ export const Visualizer: React.FC = memo(({}) => {
         amount: number,
         currency: CurrenciesEnum,
     }>({
-        amount: 5000000,
+        amount: 500000,
         currency: CurrenciesEnum.RUB,
     });
 
     const [preferredBanknote, setPreferredBanknote] = useState<number>(Object.values(monetarySystem.banknotes).reverse()[0].denomination);
     const [scale, setScale] = useState<number>(1);
     const [background, setBackground] = useState<string | null>(null);
-    const [viewMode, setViewMode] = useState<ViewModeEnum>(ViewModeEnum.Block);
+    const [viewMode, setViewMode] = useState<ViewModeEnum>(ViewModeEnum.OneWad);
     const [blockSize, setBlockSize] = useState<{ cols: number, rows: number }>({ cols: 1, rows: 1 });
 
     const wadsOfMoney = monetarySystem.splitMoneyIntoWads(
