@@ -29,7 +29,7 @@ export const Visualizer: React.FC = memo(({}) => {
         amount: number,
         currency: CurrenciesEnum
     }>({
-        amount: 500000,
+        amount: 5000000,
         currency: CurrenciesEnum.RUB,
     });
 

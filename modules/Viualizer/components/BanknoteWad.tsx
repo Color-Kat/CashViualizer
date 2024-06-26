@@ -23,6 +23,8 @@ export const BanknoteWad = ({
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const banknote = wad.banknote;
     const wadsCount = wad.wadsCount;
+    const bigWadLength = 2;
+    const floorsCount = Math.floor(wadsCount / (bigWadLength ** 2)) + 1;
 
     // Divide plenty of banknotes into small wads
     let count = viewMode === ViewModeEnum.Wad ? Math.min(wad.count, 100) : wad.count;
@@ -40,8 +42,8 @@ export const BanknoteWad = ({
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Draw background
-            if(background) {
-                const result = await new Promise(resolve =>  {
+            if (background) {
+                const result = await new Promise(resolve => {
                     const texture = new Image();
                     texture.src = background;
 
@@ -54,7 +56,7 @@ export const BanknoteWad = ({
                     texture.onerror = () => resolve(false);
                 });
 
-                if(!result) ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (!result) ctx.clearRect(0, 0, canvas.width, canvas.height);
             }
 
             for (let i = 0; i < count; i++) {
@@ -67,16 +69,18 @@ export const BanknoteWad = ({
                 const height = 90 / 69 * banknote.realHeight * scale;
                 const thickness = 0.7 / 0.125 * banknote.realThickness * scale;
 
-                let bigWadLength = 2;
-                let currentWadNumber = Math.max(Math.ceil(i / 100), 1) - 1;
-                let currentFloor = Math.max(Math.ceil(currentWadNumber / (bigWadLength*bigWadLength)), 1) - 1;
-                let currentCol = (currentWadNumber) % bigWadLength;
-                let currentRow = Math.ceil(currentWadNumber / bigWadLength) % bigWadLength;
+                // Wad position in a money block
+                let currentWadNumber = Math.floor(i / 100);
+                let currentFloor = Math.floor(currentWadNumber / (bigWadLength ** 2));
+                let currentCol = (currentWadNumber % bigWadLength ** 2) % bigWadLength;
+                let currentRow = Math.floor((currentWadNumber % bigWadLength ** 2) / bigWadLength);
                 console.log(`Wad number ${currentWadNumber}, floor ${currentFloor}, col ${currentCol}, row ${currentRow}`);
+                // console.log(`I: ${i}, Wad number ${currentWadNumber}, floor ${currentFloor}, col ${currentCol}, row ${currentRow}`);
+
 
                 // currentFloor = 0;
-                // currentCol = 0;
-                // currentRow = currentWadNumber % 2 == 0 ? 1 : 0;
+                // currentCol = currentWadNumber % 2 == 0 ? 1 : 0;
+                // currentRow = 0;
 
                 ctx.save();
 
@@ -87,6 +91,7 @@ export const BanknoteWad = ({
                     ctx.shadowOffsetX = 0;
                     ctx.shadowOffsetY = 6;
                 } else if (count > 10) {
+                    // Shadow for a big wad
                     ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
                     ctx.shadowBlur = 15;
                     ctx.shadowOffsetX = -23;
@@ -95,36 +100,38 @@ export const BanknoteWad = ({
 
                 let translateX, translateY = 0;
 
-                if(viewMode === ViewModeEnum.Block) {
+                // BLOCK ViewMode
+                if (viewMode === ViewModeEnum.Block) {
                     translateX =
-                        155 + (bigWadLength-1) * width + // Base position
+                        255 + // Base position
                         randomX // Random banknote translation
 
                         // Next wad
-                        + 115 * (currentCol) // Col position
-                        - 340 * (currentRow) // Row position
+                        + 365 * (currentCol) // Col position
+                        - 130 * (currentRow) // Row position
                     ;
                     translateY =
-                        150 + (bigWadLength) * height + // Base position
+                        (-floorsCount * 110) + // Base position
                         count * thickness +  // Wad height
                         randomY - i * thickness // Random banknote translation
 
                         // Next wad
-                        - 170 * (currentCol) // Col position
-                        - 195 * (currentRow)
+                        + 190 * (currentCol) // Col position
+                        + 240 * (currentRow)
 
-                        + 15 *thickness*(currentFloor)
+                        + 275 * thickness * (currentFloor)
                     ;
-
-                } else {
+                }
+                // ONE WAD OR ALL ViewMode
+                else {
                     translateX =
-                            (scale == 1 ? 155 : 130) * scale + // Base position
-                            randomX // Random banknote translation
+                        (scale == 1 ? 155 : 130) * scale + // Base position
+                        randomX // Random banknote translation
                     ;
                     translateY =
-                            140 * scale + // Base position
-                            count * thickness +  // Wad height
-                            randomY - i * thickness // Random banknote translation
+                        140 * scale + // Base position
+                        count * thickness +  // Wad height
+                        randomY - i * thickness // Random banknote translation
                     ;
                 }
 
@@ -139,6 +146,14 @@ export const BanknoteWad = ({
                 );
                 ctx.rotate((randomRotation * Math.PI) / 180 + 0.32);
                 ctx.drawImage(image, -150, -75, width, height); // Draw banknote
+
+                // Wad number
+                if (viewMode == ViewModeEnum.Block && i % 100 === 99) {
+                    ctx.fillStyle = '#16a12f';
+                    ctx.font = 'bold 75px Verdana'
+                    ctx.fillText(`${currentWadNumber}`, 0, 0);
+                }
+
 
                 ctx.restore();
             }
@@ -164,9 +179,20 @@ export const BanknoteWad = ({
         draw();
     }, [banknote, count, wadsCount, viewMode, scale, background]);
 
+
+    let canvasWidth = 500;
+    let canvasHeight = 500;
+    if (viewMode == ViewModeEnum.Block) {
+        canvasWidth = 500 * bigWadLength;
+        canvasHeight = 200 * floorsCount + 300;
+    } else {
+        canvasWidth = 500 * scale;
+        canvasHeight = (count * 0.7 + 300) * scale;
+    }
+
     return <canvas
         ref={canvasRef}
-        width={500 * scale}
-        height={(count * 0.7 + 300) * scale}
+        width={canvasWidth}
+        height={canvasHeight}
     />;
 };
