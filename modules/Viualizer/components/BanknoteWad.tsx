@@ -2,32 +2,47 @@ import React, { useEffect, useRef } from 'react';
 import { WadOfMoney } from "@/modules/Viualizer/Money/WadOfMoney";
 
 export enum ViewModeEnum {
-    Wad = 'wad',
-    All = 'all',
+    OneWad = 'one-wad',
     Block = 'block'
 }
 
 export const BanknoteWad = ({
     wad,
-    viewMode = ViewModeEnum.Wad,
+    viewMode = ViewModeEnum.OneWad,
     scale = 1,
     background = null,
-    wadSize = 100
+    blockSize = { cols: 2, rows: 2 },
 }: {
     wad: WadOfMoney,
     viewMode: ViewModeEnum,
     scale?: number,
     background?: string | null,
-    wadSize?: number
+    blockSize?: { cols: number, rows: number },
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const banknote = wad.banknote;
-    const wadsCount = wad.wadsCount;
-    const bigWadLength = 2;
-    const floorsCount = Math.floor(wadsCount / (bigWadLength ** 2)) + 1;
 
-    // Divide plenty of banknotes into small wads
-    let count = viewMode === ViewModeEnum.Wad ? Math.min(wad.count, 100) : wad.count;
+    // One wad view mode
+    let count, wadsCount;
+    if (viewMode === ViewModeEnum.OneWad) {
+        blockSize = { cols: 1, rows: 1 };
+        count = Math.min(wad.count, 100);
+        wadsCount = 1;
+    } else {
+        count = wad.count;
+        wadsCount = wad.wadsCount;
+    }
+
+    const colsCount = blockSize.cols;
+    const rowsCount = blockSize.rows;
+    const wadsPerFloor = colsCount * rowsCount;
+    const floorsCount = Math.floor(wadsCount / wadsPerFloor) + 1;
+
+    // Get banknote size
+    // Wad size depends on image scaling
+    const width = 500 / 157 * banknote.realWidth * scale;
+    const height = 90 / 69 * banknote.realHeight * scale;
+    const thickness = 0.7 / 0.125 * banknote.realThickness * scale;
 
     const draw = async () => {
         // Create canvas context
@@ -61,108 +76,79 @@ export const BanknoteWad = ({
 
             for (let i = 0; i < count; i++) {
                 const randomRotation = Math.random() * 4 - 2; // Random rotation from -2 to 2 deg
-                const randomX = Math.random() * 10 - 5; // Random X translation from -5 to 5 px
-                const randomY = Math.random() * 10 - 5; // Random Y translation from -5 to 5 px
-
-                // Wad size depends on image scaling
-                const width = 500 / 157 * banknote.realWidth * scale;
-                const height = 90 / 69 * banknote.realHeight * scale;
-                const thickness = 0.7 / 0.125 * banknote.realThickness * scale;
+                const randomX = Math.random() * 10 - 5;       // Random X translation from -5 to 5 px
+                const randomY = Math.random() * 10 - 5;       // Random Y translation from -5 to 5 px
 
                 // Wad position in a money block
-                let currentWadNumber = Math.floor(i / 100);
-                let currentFloor = Math.floor(currentWadNumber / (bigWadLength ** 2));
-                let currentCol = (currentWadNumber % bigWadLength ** 2) % bigWadLength;
-                let currentRow = Math.floor((currentWadNumber % bigWadLength ** 2) / bigWadLength);
-                console.log(`Wad number ${currentWadNumber}, floor ${currentFloor}, col ${currentCol}, row ${currentRow}`);
-                // console.log(`I: ${i}, Wad number ${currentWadNumber}, floor ${currentFloor}, col ${currentCol}, row ${currentRow}`);
-
-
-                // currentFloor = 0;
-                // currentCol = currentWadNumber % 2 == 0 ? 1 : 0;
-                // currentRow = 0;
-
-                ctx.save();
+                let currentWadNumber = Math.floor(i / 100);                                 // Increase by 1 every 100 banknotes
+                let currentFloor = Math.floor(currentWadNumber / wadsPerFloor);             // Current block floor
+                let currentCol = (currentWadNumber % wadsPerFloor) % colsCount;               // Current block column
+                let currentRow = Math.floor((currentWadNumber % wadsPerFloor) / colsCount); // Current block row
 
                 // Shadow
                 if (i > 0 || count <= 10) {
                     ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
-                    ctx.shadowBlur = 6;
+                    ctx.shadowBlur = 6 * scale;
                     ctx.shadowOffsetX = 0;
-                    ctx.shadowOffsetY = 6;
+                    ctx.shadowOffsetY = 6 * scale ;
                 } else if (count > 10) {
                     // Shadow for a big wad
                     ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
-                    ctx.shadowBlur = 15;
-                    ctx.shadowOffsetX = -23;
-                    ctx.shadowOffsetY = 20;
+                    ctx.shadowBlur = 15 * scale ;
+                    ctx.shadowOffsetX = -23 * scale ;
+                    ctx.shadowOffsetY = 20 * scale ;
                 }
 
-                let translateX, translateY = 0;
+                let translateX, translateY;
 
-                // BLOCK ViewMode
-                if (viewMode === ViewModeEnum.Block) {
-                    translateX =
-                        255 + // Base position
-                        randomX // Random banknote translation
+                // Calculate the base position of the first wad depending on the block size
+                const startPositionX = 120 * rowsCount + 25;
+                const startPositionY = -count * thickness + 120 * thickness * (floorsCount + 1) + 35;
 
-                        // Next wad
-                        + 365 * (currentCol) // Col position
-                        - 130 * (currentRow) // Row position
-                    ;
-                    translateY =
-                        (-floorsCount * 110) + // Base position
-                        count * thickness +  // Wad height
-                        randomY - i * thickness // Random banknote translation
+                translateX =
+                    startPositionX       // Base position of the first wad in the block
+                    + 360 * (currentCol) // Col position of the wad
+                    - 120 * (currentRow) // Row position of the wad
+                    + randomX            // Random banknote translation
+                ;
+                translateY =
+                    startPositionY                // Base position of the first wad in the block
+                    + count * thickness           // Wad height
+                    + randomY                     // Random banknote translation
+                    - (i % 100) * thickness       // Banknote Y translation in every wad
 
-                        // Next wad
-                        + 190 * (currentCol) // Col position
-                        + 240 * (currentRow)
+                    + 125 * (currentCol)               // Col position
+                    + 100 * (currentRow)               // Row position
+                    - 117 * thickness * (currentFloor) // Floor position
+                ;
 
-                        + 275 * thickness * (currentFloor)
-                    ;
-                }
-                // ONE WAD OR ALL ViewMode
-                else {
-                    translateX =
-                        (scale == 1 ? 155 : 130) * scale + // Base position
-                        randomX // Random banknote translation
-                    ;
-                    translateY =
-                        140 * scale + // Base position
-                        count * thickness +  // Wad height
-                        randomY - i * thickness // Random banknote translation
-                    ;
-                }
-
-                // ctx.translate(250 + randomX, 250 + randomY - i*0.5); // Перемещаем к центру холста
+                ctx.save();
                 ctx.setTransform(
                     1, // Horizontal scale
                     -0.078, // Vertical skew
                     -0.8, // Horizontal skew
                     1, // Vertical scale
-                    translateX,
-                    translateY
+                    translateX * scale,
+                    translateY * scale
                 );
                 ctx.rotate((randomRotation * Math.PI) / 180 + 0.32);
                 ctx.drawImage(image, -150, -75, width, height); // Draw banknote
 
                 // Wad number
-                if (viewMode == ViewModeEnum.Block && i % 100 === 99) {
-                    ctx.fillStyle = '#16a12f';
-                    ctx.font = 'bold 75px Verdana'
-                    ctx.fillText(`${currentWadNumber}`, 0, 0);
-                }
-
+                // if (viewMode == ViewModeEnum.Block && i % 100 === 99) {
+                //     ctx.fillStyle = 'white';
+                //     ctx.font = 'bold 75px Verdana'
+                //     ctx.fillText(`${currentWadNumber+1}`, 25, 0);
+                // }
 
                 ctx.restore();
             }
 
             // Add wad money multiplier
-            if (viewMode == ViewModeEnum.Wad && wadsCount > 1) {
+            if (viewMode == ViewModeEnum.OneWad && wad.wadsCount > 1) {
                 ctx.fillStyle = '#16a12f';
                 ctx.font = 'bold 75px Verdana'
-                ctx.fillText(`X${wadsCount}`, 1, canvas.height - 80);
+                ctx.fillText(`X${wad.wadsCount}`, 1, canvas.height - 80);
             }
 
             // Watermark
@@ -177,22 +163,24 @@ export const BanknoteWad = ({
     // Rerender when parameters changed
     useEffect(() => {
         draw();
-    }, [banknote, count, wadsCount, viewMode, scale, background]);
+    }, [banknote, count, wadsCount, viewMode, scale, background, blockSize]);
 
 
-    let canvasWidth = 500;
-    let canvasHeight = 500;
-    if (viewMode == ViewModeEnum.Block) {
-        canvasWidth = 500 * bigWadLength;
-        canvasHeight = 200 * floorsCount + 300;
-    } else {
-        canvasWidth = 500 * scale;
-        canvasHeight = (count * 0.7 + 300) * scale;
-    }
+    let canvasWidth =
+        120 * rowsCount + 25
+        + 365 * colsCount // Last Col position
+    ;
+
+    let canvasHeight =
+        35 +
+        +122 * colsCount // Last Col position
+        + 100 * rowsCount // Last Row position
+        + 120 * thickness * floorsCount // Floor position
+    ;
 
     return <canvas
         ref={canvasRef}
-        width={canvasWidth}
-        height={canvasHeight}
+        width={canvasWidth * scale }
+        height={canvasHeight * scale }
     />;
 };

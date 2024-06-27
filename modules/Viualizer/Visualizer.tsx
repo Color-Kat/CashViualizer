@@ -27,16 +27,17 @@ export const Visualizer: React.FC = memo(({}) => {
 
     const [data, setData] = useState<{
         amount: number,
-        currency: CurrenciesEnum
+        currency: CurrenciesEnum,
     }>({
-        amount: 5000000,
+        amount: 500000,
         currency: CurrenciesEnum.RUB,
     });
 
     const [preferredBanknote, setPreferredBanknote] = useState<number>(Object.values(monetarySystem.banknotes).reverse()[0].denomination);
     const [scale, setScale] = useState<number>(1);
     const [background, setBackground] = useState<string | null>(null);
-    const [viewMode, setViewMode] = useState<ViewModeEnum>(ViewModeEnum.Wad);
+    const [viewMode, setViewMode] = useState<ViewModeEnum>(ViewModeEnum.OneWad);
+    const [blockSize, setBlockSize] = useState<{ cols: number, rows: number }>({ cols: 1, rows: 1 });
 
     const wadsOfMoney = monetarySystem.splitMoneyIntoWads(
         data.amount,
@@ -85,9 +86,9 @@ export const Visualizer: React.FC = memo(({}) => {
                     <div className="">
                         <PurpleButton
                             className="w-full"
-                            onClick={() => setViewMode(viewMode == ViewModeEnum.Wad ? ViewModeEnum.All : ViewModeEnum.Wad)}
+                            onClick={() => setViewMode(viewMode == ViewModeEnum.OneWad ? ViewModeEnum.Block : ViewModeEnum.OneWad)}
                         >
-                            {viewMode == ViewModeEnum.Wad
+                            {viewMode == ViewModeEnum.OneWad
                                 ? <div className="leading-3">
                                     Раскрыть пачки <br />
                                     <span className="text-[10px] text-gray-200">(Может сказаться на производительности)</span>
@@ -97,8 +98,38 @@ export const Visualizer: React.FC = memo(({}) => {
                         </PurpleButton>
                     </div>
 
-                    <div className="flex gap-2">
-                        {[1, 1.5, 2, 3, 4, 5].map(scaleCoef => (
+                    <div className="flex items-center text-base">
+                        <div className="whitespace-nowrap pr-3 flex-1 text-lg">Размер Блока:</div>
+
+                        <div className="flex items-center gap-1">
+                            <Input
+                                data={blockSize}
+                                setData={setBlockSize}
+                                name="cols"
+                                type="number"
+                                max={100}
+                                min={0}
+                                className="w-16 p-1 text-right rounded-xl text-base appearance-none"
+                            />
+
+                            <div className="font-bold text-xl">
+                                X
+                            </div>
+
+                            <Input
+                                data={blockSize}
+                                setData={setBlockSize}
+                                name="rows"
+                                type="number"
+                                max={100}
+                                min={0}
+                                className="w-16 p-0.5 text-right rounded-xl text-base appearance-none"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-2 justify-between">
+                        {[0.5, 1, 1.5, 2, 3, 4].map(scaleCoef => (
                             <WhiteButton
                                 key={scaleCoef}
                                 onClick={() => setScale(scaleCoef)}
@@ -168,6 +199,7 @@ export const Visualizer: React.FC = memo(({}) => {
                                 <BanknoteWad
                                     key={wad.banknote.denomination}
                                     wad={wad}
+                                    blockSize={blockSize}
                                     viewMode={viewMode}
                                     scale={scale}
                                     background={background}
