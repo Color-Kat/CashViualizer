@@ -40,8 +40,10 @@ export const BanknoteWad = ({
 
     // Get banknote size
     // Wad size depends on image scaling
-    const width = 500 / 157 * banknote.realWidth * scale;
-    const height = 90 / 69 * banknote.realHeight * scale;
+    const widthCoef = 1 / 157 * banknote.realWidth * scale;
+    const heightCoef = 1 / 69 * banknote.realHeight * scale;
+    const width = 500 * widthCoef;
+    const height = 90 * heightCoef;
     const thickness = 0.7 / 0.125 * banknote.realThickness * scale;
 
     const draw = async () => {
@@ -128,8 +130,8 @@ export const BanknoteWad = ({
                     -0.078, // Vertical skew
                     -0.8, // Horizontal skew
                     1, // Vertical scale
-                    translateX * scale,
-                    translateY * scale
+                    translateX * widthCoef,
+                    translateY * heightCoef
                 );
                 ctx.rotate((randomRotation * Math.PI) / 180 + 0.32);
                 ctx.drawImage(image, -150, -75, width, height); // Draw banknote

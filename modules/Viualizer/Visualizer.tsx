@@ -7,11 +7,12 @@ import { AbstractMonetarySystem } from "@/modules/Viualizer/Money/AbstractMoneta
 import { RUBMonetarySystem } from "@/modules/Viualizer/Money/RUBMonetarySystem";
 import { CurrenciesEnum } from "@/modules/Viualizer/types";
 import Image from "next/image";
-import { BorderedButton, PurpleButton, WhiteButton } from "@/UI/Buttons";
+import { PurpleButton, WhiteButton } from "@/UI/Buttons";
 import { twJoin } from "tailwind-merge";
 import { Information } from "@/modules/Viualizer/components/Information";
 import { BanknoteWad, ViewModeEnum } from "@/modules/Viualizer/components/BanknoteWad";
-import { USDMonetarySystem } from "@/modules/Viualizer/Money/USDMonetarySystem";
+import { USDMonetarySystem } from "./Money/USDMonetarySystem";
+import { EURMonetarySystem } from "./Money/EURMonetarySystem";
 
 const currencies: CurrenciesEnum[] = [
     CurrenciesEnum.RUB,
@@ -37,18 +38,18 @@ export const Visualizer: React.FC = memo(({}) => {
     const [scale, setScale] = useState<number>(1);
     const [background, setBackground] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<ViewModeEnum>(ViewModeEnum.OneWad);
-    const [blockSize, setBlockSize] = useState<{ cols: number, rows: number }>({ cols: 1, rows: 1 });
+    const [blockSize, setBlockSize] = useState<{ cols: number, rows: number }>({ cols: 2, rows: 2 });
 
     const wadsOfMoney = monetarySystem.splitMoneyIntoWads(
         data.amount,
         preferredBanknote
     );
 
-    // Change monetary system
+    // Change a monetary system
     useEffect(() => {
         if (data.currency === 'RUB') setMonetarySystem(new RUBMonetarySystem());
         else if (data.currency === 'USD') setMonetarySystem(new USDMonetarySystem());
-        else if (data.currency === 'EUR') setMonetarySystem(new RUBMonetarySystem());
+        else if (data.currency === 'EUR') setMonetarySystem(new EURMonetarySystem());
         else if (data.currency === 'CNY') setMonetarySystem(new RUBMonetarySystem());
         else setMonetarySystem(new RUBMonetarySystem());
     }, [data.currency]);
