@@ -89,10 +89,10 @@ export const BanknoteWad = ({
 
                 // Shadow
                 if (i > 0 || count <= 10) {
-                    ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
+                    ctx.shadowColor = `rgba(0, 0, 0, ${0.07*scale})`;
                     ctx.shadowBlur = 6 * scale;
                     ctx.shadowOffsetX = 0;
-                    ctx.shadowOffsetY = 6 * scale ;
+                    ctx.shadowOffsetY = 6 * scale;
                 } else if (count > 10) {
                     // Shadow for a big wad
                     ctx.shadowColor = "rgba(0, 0, 0, 0.07)";
@@ -154,7 +154,7 @@ export const BanknoteWad = ({
             }
 
             // Watermark
-            ctx.fillStyle = 'rgba(37,162,57,0.1)';
+            ctx.fillStyle = 'rgba(37,162,57,0.3)';
             ctx.font = "bold 16px Inter";
             ctx.fillText("CashVisualizer By @ColorKat", 5, canvas.height - 5);
 
