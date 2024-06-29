@@ -3,4 +3,4 @@ export enum CurrenciesEnum {
     USD = 'USD',
     EUR = 'EUR',
     CNY = 'CNY'
-};
+}

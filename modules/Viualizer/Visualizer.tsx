@@ -13,6 +13,7 @@ import { Information } from "@/modules/Viualizer/components/Information";
 import { BanknoteWad, ViewModeEnum } from "@/modules/Viualizer/components/BanknoteWad";
 import { USDMonetarySystem } from "./Money/USDMonetarySystem";
 import { EURMonetarySystem } from "./Money/EURMonetarySystem";
+import { CNYMonetarySystem } from "@/modules/Viualizer/Money/CNYMonetarySystem";
 
 const currencies: CurrenciesEnum[] = [
     CurrenciesEnum.RUB,
@@ -50,7 +51,7 @@ export const Visualizer: React.FC = memo(({}) => {
         if (data.currency === 'RUB') setMonetarySystem(new RUBMonetarySystem());
         else if (data.currency === 'USD') setMonetarySystem(new USDMonetarySystem());
         else if (data.currency === 'EUR') setMonetarySystem(new EURMonetarySystem());
-        else if (data.currency === 'CNY') setMonetarySystem(new RUBMonetarySystem());
+        else if (data.currency === 'CNY') setMonetarySystem(new CNYMonetarySystem());
         else setMonetarySystem(new RUBMonetarySystem());
     }, [data.currency]);
 
