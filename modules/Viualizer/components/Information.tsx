@@ -71,7 +71,7 @@ export const Information: FC<InformationProps> = memo(({ wads }) => {
                 value={formatNumber(data.totalSquare) + ' м2'}
             />
             <SpecLine
-                title="Длинна линии из купюр"
+                title="Длина линии из купюр"
                 value={formatNumber(data.totalLength / 1000) + ' м'}
             />
         </div>
