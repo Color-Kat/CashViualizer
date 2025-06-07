@@ -1,7 +1,7 @@
 'use client';
 
 import React, {memo} from 'react';
-import useYaRTB from "@/hooks/useYaRTB";
+import { useYaRTBFeed } from "@/hooks/useYaRTB";
 
 interface AdBannerProps {
     yandexRTBId?: number,
@@ -18,8 +18,8 @@ const AdBanner: React.FC<AdBannerProps> = ({
 
 
     // Show Yandex RTB ad
-    if(yandexRTBId !== undefined) {
-        useYaRTB(yandexRTBId);
+    if(yandexRTBId !== undefined)
+        useYaRTBFeed(yandexRTBId);
 
         return (
             <div

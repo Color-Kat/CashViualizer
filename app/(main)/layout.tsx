@@ -19,6 +19,7 @@ export default function RootLayout({
     return (
         <html lang="ru">
         <head>
+            {/* Yandex.RTB */}
             <script>window.yaContextCb=window.yaContextCb||[]</script>
             <script src="https://yandex.ru/ads/system/context.js" async></script>
         </head>
