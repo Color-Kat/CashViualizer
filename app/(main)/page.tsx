@@ -2,7 +2,6 @@ import { HeroSection } from "@/app/(main)/modules/HeroSection";
 import { Visualizer } from "@/modules/Viualizer/Visualizer";
 import { Section } from "@/UI/Section/Section";
 import { Metadata } from "next";
-import useYaRTB from "@/hooks/useYaRTB";
 import AdBanner from "@/components/Page/AdBanner";
 
 export const metadata: Metadata = {
