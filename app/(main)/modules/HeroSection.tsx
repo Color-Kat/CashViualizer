@@ -17,7 +17,7 @@ const roboto = Roboto({
 
 export const HeroSection: React.FC = memo(({}) => {
     return (
-        <Section className="md:mt-16 md:mb-10 sm:my-20 mt-8 mb-16 flex">
+        <Section className="md:mt-8 md:mb-8 sm:my-10 mt-8 mb-8 flex">
             <div className="space-y-7 max-w-xl">
                 <a
                     href="https://colorbit.ru"

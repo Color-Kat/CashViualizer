@@ -58,7 +58,7 @@ export const Visualizer: React.FC = memo(({}) => {
     // https://www.banki.ru/news/lenta/?id=9753981
 
     return (
-        <Section className="md:mt-16 md:mb-10 sm:my-20 mt-8 mb-16">
+        <Section className="md:mt-8 sm:my-20 mt-8">
             <div className="settings flex lg:gap-12 gap-6 md:flex-nowrap flex-wrap">
                 <div className="flex flex-col gap-4">
                     <div
