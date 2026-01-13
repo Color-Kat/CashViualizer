@@ -33,7 +33,7 @@ export const Input: React.FC<InputProps> = ({
         >
             {label && <label
                 htmlFor={id}
-                className="block text-lg font-medium text-gray-600"
+                className="block text-sm font-medium text-gray-600"
             >
                 {label}
             </label>}

@@ -42,7 +42,7 @@ export const Select: React.FC<SelectProps> = ({
         >
             {label && <label
                 htmlFor={id}
-                className="block text-lg font-medium text-gray-600 mb-1.5"
+                className="block text-sm font-medium text-gray-600 mb-1.5"
             >
                 {label}
             </label>}

@@ -1,5 +1,6 @@
 "use client";
 
+import { PomeloAd } from "@/modules/Viualizer/PomeloAd";
 import React, { memo, useEffect, useState } from "react";
 import { Section } from "@/UI/Section/Section";
 import { Input, Select } from "@/components/Inputs";
@@ -58,7 +59,7 @@ export const Visualizer: React.FC = memo(({}) => {
     // https://www.banki.ru/news/lenta/?id=9753981
 
     return (
-        <Section className="md:mt-8 sm:my-20 mt-8">
+        <Section className="md:mt-8 sm:mt-10 mt-8">
             <div className="settings flex lg:gap-12 gap-6 md:flex-nowrap flex-wrap">
                 <div className="flex flex-col gap-4">
                     <div
@@ -101,7 +102,7 @@ export const Visualizer: React.FC = memo(({}) => {
                     </div>
 
                     <div className="flex items-center text-base">
-                        <div className="whitespace-nowrap pr-3 flex-1 text-lg">Размер Блока:</div>
+                        <div className="whitespace-nowrap pr-3 flex-1 text-base">Размер Блока:</div>
 
                         <div className="flex items-center gap-1">
                             <Input
@@ -184,8 +185,6 @@ export const Visualizer: React.FC = memo(({}) => {
                 </div>
             </div>
 
-            <Information wads={wadsOfMoney} />
-
             <div className="mt-8">
                 <h2
                     className="text-2xl font-bold text-gray-700"
@@ -236,9 +235,11 @@ export const Visualizer: React.FC = memo(({}) => {
                         {/*})}*/}
                     </div>
                 </div>
-
             </div>
 
+            <Information wads={wadsOfMoney} />
+
+            <PomeloAd/>
         </Section>
     );
 });

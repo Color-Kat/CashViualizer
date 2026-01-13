@@ -41,7 +41,7 @@ export const Information: FC<InformationProps> = memo(({ wads }) => {
     return (
         <div className="mt-8 ax-w-[350px] w-full text-lg">
             <h2
-                className="text-2xl font-bold text-gray-700 mb-2"
+                className="text-xl font-bold text-gray-700 mb-2"
             >
                 Информация
             </h2>
@@ -79,7 +79,7 @@ export const Information: FC<InformationProps> = memo(({ wads }) => {
 });
 
 const SpecLine = ({ title, value }: { title: string, value: string | number }) => (
-    <div className="flex">
+    <div className="flex text-base">
         <div className="flex items-end grow border-b border-gray-600 border-dotted pb-1">
             <span>{title}</span>
         </div>

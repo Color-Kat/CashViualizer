@@ -13,7 +13,7 @@ export const Page: React.FC<PageProps> = ({children, className}) => {
     return ( 
         <div className={twMerge(
             'container max-w-6xl px-2 sm:px-5 mx-auto',
-            'pt-5 pb-16',
+            'pt-2 pb-16',
             className
         )}>
             {children}
